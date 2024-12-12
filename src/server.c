@@ -54,7 +54,7 @@ static void send_to_all(char* buf, const char* fmt, ...)
 
 static void unexended_client_auth(const struct gserver__reciver_args* args, char* buf, struct user* user)
 {
-	dprintf(args->fd, "Enter login: ");
+	dprintf(args->fd, "Enter login:\n");
 	if (!read_data(args->fd, buf))
 		return;
 
@@ -68,7 +68,7 @@ static void unexended_client_auth(const struct gserver__reciver_args* args, char
 static void unexended_client_loop(const struct gserver__reciver_args* args, char* buf, struct user* user)
 {
 	user->user_state = USRST_ACTIVE;
-	send_to_all(buf, "User %s connected!\n", user->login);
+	send_to_all(buf, "<server> User %s connected!\n", user->login);
 
 	while (read_data(args->fd, buf)) {
 		char* msg = malloc(strlen(buf));
@@ -81,7 +81,7 @@ static void unexended_client_loop(const struct gserver__reciver_args* args, char
 		free(msg);
 	}
 
-	send_to_all(buf, "User %s disconnected!\n", user->login); 
+	send_to_all(buf, "<server> User %s disconnected!\n", user->login); 
 	user->user_state = USRST_CONNECTED;
 }
 
