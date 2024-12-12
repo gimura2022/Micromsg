@@ -2,6 +2,7 @@
 *.out
 lib*.*
 micromsg
+client
 
 gnub
 compile_commands.json
